@@ -7,7 +7,8 @@ const API_KEY = process.env.API_KEY || 'your_api_key_here';
 
 let cachedSapData = null;
 
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
+
 
 // Middleware to check API key
 function checkApiKey(req, res, next) {
