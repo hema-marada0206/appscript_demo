@@ -20,10 +20,12 @@ function checkApiKey(req, res, next) {
 
 // Endpoint to update SAP data (called by your internal script)
 app.post('/update-sap-data', checkApiKey, (req, res) => {
-  cachedSapData = req.body;
+  // Store only the important part: d.results (array of orders)
+  cachedSapData = req.body?.d?.results || req.body;
   console.log('SAP data updated at', new Date());
   res.json({ message: 'Data updated successfully' });
 });
+
 
 // Endpoint to get cached SAP data (Apps Script will call this)
 app.get('/sap-data', (req, res) => {
